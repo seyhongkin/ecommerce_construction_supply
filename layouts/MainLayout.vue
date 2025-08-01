@@ -16,6 +16,7 @@
                     h-10
                     bg-[#FAFAFA] 
                     max-w-[1200px] 
+                    mx-auto
                 "
             >
                 <li class="border-r border-r-gray-400 px-3 hover:text-[#FF4646] cursor-pointer">
@@ -29,10 +30,6 @@
                 </li>
                 <li class="border-r border-r-gray-400 px-3 hover:text-[#FF4646] cursor-pointer">
                     Buyer Protection
-                </li>
-                <li class="px-3 hover:text-[#FF4646] cursor-pointer">
-                    <Icon name="ic:sharp-install-mobile" size="17"/>
-                    App
                 </li>
                 <li 
                     @mouseenter="isAccountMenu = true"
