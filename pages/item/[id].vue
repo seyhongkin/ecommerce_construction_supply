@@ -31,7 +31,7 @@
                         <span class="h-4 min-w-4 rounded-full p-0.5 bg-[#FFD000] mr-2">
                             <Icon name="material-symbols:star-rounded" class="-mt-[17px]" size="12"/>
                         </span>
-                        <p class="text-[#FF5353]">Extra 5% off</p>
+                        <p class="text-[#FF5353]">បញ្ចុះតម្លៃ 5%</p>
                     </div>
 
                     <div class="flex items-center justify-start my-2">
@@ -40,22 +40,22 @@
                         <Icon name="ic:baseline-star" color="#FF5353"/>
                         <Icon name="ic:baseline-star" color="#FF5353"/>
                         <Icon name="ic:baseline-star" color="#FF5353"/>
-                        <span class="text-[13px] font-light ml-2">5 213 Reviews 1,000+ orders</span>
+                        <span class="text-[13px] font-light ml-2">ឱ្យពិន្ទុពី 5 213 នាក់ មានកម្មង់ 1,000+</span>
                     </div>
 
                     <div class="border-b" />
 
                     <div class="flex items-center justify-start gap-2 my-2">
                         <div class="text-xl font-bold">$ {{ priceComputed }}</div>
-                        <span class="bg-[#F5F5F5] border text-[#C08562] text-[9px] font-semibold px-1.5 rounded-sm">70% off</span>
+                        <span class="bg-[#F5F5F5] border text-[#C08562] text-[9px] font-semibold px-1.5 rounded-sm">តម្លៃបានពិនិត្យ</span>
                     </div>
 
                     <p class="text-[#009A66] text-xs font-semibold pt-1">
-                        Free 11-day delivery over ￡8.28
+                        មិនគិតថ្លៃដឹកចំពោះការទិញក្រោម $20
                     </p>
 
                     <p class="text-[#009A66] text-xs font-semibold pt-1">
-                        Free Shipping
+                        មិនគិតថ្លៃវេចខ្ចប់
                     </p>
 
                     <div class="py-2"/>
@@ -75,8 +75,8 @@
                             to-[#FFAC2C]
                         "
                     >
-                        <div v-if="isInCart">Is Added</div>
-                        <div v-else>Add to Cart</div>
+                        <div v-if="isInCart">បានដាក់ក្នុងកន្ទ្រក់</div>
+                        <div v-else>ដាក់ចូលកន្ទ្រក់</div>
                     </button>
                 </div>
             </div>

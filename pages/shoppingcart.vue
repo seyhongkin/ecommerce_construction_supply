@@ -36,13 +36,13 @@
                     <div class="bg-white rounded-lg p-4">
 
                         <div class="text-2xl font-bold mb-2">
-                            Shopping Cart ({{ userStore.cart.length }})
+                            ក្នុងកន្ទ្រក់មានទំនិញចំនួន ({{ userStore.cart.length }})
                         </div>
 
                     </div>
 
                     <div class="bg-[#FEEEEF] rounded-lg p-4 mt-4">
-                        <div class="text-red-500 font-bold">Welcome Deal applicable on 1 item only</div>
+                        <div class="text-red-500 font-bold">មិនគិតថ្លៃដឹកចំពោះការទិញក្រោម $20</div>
                     </div>
 
                     <div id="Items" class="bg-white rounded-lg p-4 mt-4">
@@ -59,9 +59,10 @@
                 <div class="md:hidden block my-4"/>
                 <div class="md:w-[35%]">
                     <div id="Summary" class="bg-white rounded-lg p-4">
-                        <div class="text-2xl font-extrabold mb-2">Summary</div>
+                        <div class="text-2xl font-extrabold mb-2">សរុបតម្លៃទំនិញមានក្នុងកន្រ្ទក់</div>
+                        <p class="text-[#FD374F]">សូមជ្រើសរើសទំនិញជាមុនសិន</p>
                         <div class="flex items-center justify-between my-4">
-                            <div class="font-semibold">Total</div>
+                            <div class="font-semibold">សរុប</div>
                             <div class="text-2xl font-semibold">
                                 $ <span class="font-extrabold">{{ totalPriceComputed }}</span>
                             </div>
@@ -82,26 +83,8 @@
                                 mt-4
                             "
                         >
-                            Checkout
+                            បញ្ជាទិញទំនិញ
                         </button>
-                    </div>
-
-                    <div id="PaymentProtection" class="bg-white rounded-lg p-4 mt-4">
-
-                        <div class="text-lg font-semibold mb-2">Payment methods</div>
-                        <div class="flex items-center justify-start gap-8 my-4">
-                            <div v-for="card in cards">
-                                <img class="h-6" :src="card">
-                            </div>
-                        </div>
-
-                        <div class="border-b"/>
-
-                        <div class="text-lg font-semibold mb-2 mt-2">Buyer Protection</div>
-                        <p class="my-2">
-                            Get full refund if the item is not as described or if is not delivered
-                        </p>
-
                     </div>
                 </div>
             </div>

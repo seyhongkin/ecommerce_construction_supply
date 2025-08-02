@@ -10,6 +10,12 @@
   />
 </template>
 
+<style>
+    * {
+        font-family: sans-serif, 'Noto Sans Khmer', 'Khmer';
+    }
+</style>
+
 <script setup>
 import { useUserStore } from '~/stores/user';
 const userStore = useUserStore()

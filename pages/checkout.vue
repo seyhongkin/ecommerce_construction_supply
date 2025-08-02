@@ -6,7 +6,7 @@
                 <div class="md:w-[65%]">
                     <div class="bg-white rounded-lg p-4">
 
-                        <div class="text-xl font-semibold mb-2">Shipping Address</div>
+                        <div class="text-xl font-semibold mb-2">អាសយដ្ឋានដឹកជញ្ជូន</div>
 
                         <div v-if="currentAddress && currentAddress.data">
                             <NuxtLink 
@@ -14,30 +14,30 @@
                                 class="flex items-center pb-2 text-blue-500 hover:text-red-400"
                             >
                                 <Icon name="mdi:plus" size="18" class="mr-2"/>
-                                Update Address
+                                អាសយដ្ឋានដឹកជញ្ជូន
                             </NuxtLink>
 
                             <div class="pt-2 border-t">
-                                <div class="underline pb-1">Delivery Address</div>
+                                <div class="underline pb-1">អាសយដ្ឋាន</div>
                                 <ul class="text-xs">
                                     <li class="flex items-center gap-2">
-                                        <div>Contact name:</div> 
+                                        <div>ឈ្មោះ:</div> 
                                         <div class="font-bold">{{ currentAddress.data.name }}</div>
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <div>Address:</div> 
+                                        <div>អាសយដ្ឋាន:</div> 
                                         <div class="font-bold">{{ currentAddress.data.address }}</div>
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <div>Zip Code:</div> 
+                                        <div>កូដតំបន់:</div> 
                                         <div class="font-bold">{{ currentAddress.data.zipcode }}</div>
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <div>City:</div> 
+                                        <div>ទីក្រុង:</div> 
                                         <div class="font-bold">{{ currentAddress.data.city }}</div>
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <div>Country:</div> 
+                                        <div>ប្រទេស:</div> 
                                         <div class="font-bold">{{ currentAddress.data.country }}</div>
                                     </li>
                                 </ul>
@@ -50,7 +50,7 @@
                             class="flex items-center text-blue-500 hover:text-red-400"
                         >
                             <Icon name="mdi:plus" size="18" class="mr-2"/>
-                            Add New Address
+                            បន្ថែមអាសយដ្ឋានដឹកជញ្ជូន
                         </NuxtLink>
                     </div>
 
@@ -65,36 +65,26 @@
                 <div class="md:w-[35%]">
                     <div id="PlaceOrder" class="bg-white rounded-lg p-4">
 
-                        <div class="text-2xl font-extrabold mb-2">Summary</div>
+                        <div class="text-2xl font-extrabold mb-2">សរុបតម្លៃទំនិញ</div>
 
                         <div class="flex items-center justify-between my-4">
-                            <div class="">Total Shipping</div>
-                            <div class="">Free</div>
+                            <div class="">សរុបថ្លៃដឹក</div>
+                            <div class="">មិនគិតថ្លៃ</div>
                         </div>
 
                         <div class="border-t" />
 
                         <div class="flex items-center justify-between my-4">
-                            <div class="font-semibold">Total</div>
+                            <div class="font-semibold">សុរប</div>
                             <div class="text-2xl font-semibold">
                                 $ <span class="font-extrabold">{{ total / 100 }}</span>
                             </div>
                         </div>
 
                         <form @submit.prevent="pay()">
-                            <div 
-                                class="border border-gray-500 p-2 rounded-sm" 
-                                id="card-element" 
-                            />
-
-                            <p 
-                                id="card-error" 
-                                role="alert" 
-                                class="text-red-700 text-center font-semibold" 
-                            />
 
                             <button 
-                                :disabled="isProcessing"
+                                :disabled="!(currentAddress && currentAddress.data)"
                                 type="submit"
                                 class="
                                 mt-4
@@ -108,20 +98,14 @@
                                     p-1.5 
                                     rounded-full
                                 "
-                                :class="isProcessing ? 'opacity-70' : 'opacity-100'"
+                                :class="{
+                                    'opacity-50 cursor-not-allowed': !(currentAddress && currentAddress.data) || isProcessing
+                                }"
                             >
                                 <Icon v-if="isProcessing" name="eos-icons:loading" />
-                                <div v-else>Place order</div>
+                                <div v-else>បញ្ជាទិញ</div>
                             </button>
                         </form>
-
-                    </div>
-
-                    <div class="bg-white rounded-lg p-4 mt-4">
-                        <div class="text-lg font-semibold mb-2 mt-2">AliExpress</div>
-                        <p class="my-2">
-                            AliExpress keeps your information and payment safe
-                        </p>
 
                     </div>
                 </div>
@@ -147,7 +131,7 @@ let form = null
 let total = ref(0)
 let clientSecret = null
 let currentAddress = ref(null)
-let isProcessing = ref(false)
+let isProcessing = ref(null)
 
 onBeforeMount(async () => {
     if (userStore.checkout.length < 1) {
@@ -168,8 +152,6 @@ watchEffect(() => {
 })
 
 onMounted(async () => {
-    isProcessing.value = true
-
     userStore.checkout.forEach(item => {
         total.value += item.price
     })
@@ -181,75 +163,25 @@ watch(() => total.value, () => {
     }
 })
 
-const stripeInit = async () => {
-    const runtimeConfig = useRuntimeConfig()
-    stripe = Stripe(runtimeConfig.stripePk);
-
-    let res = await $fetch('/api/stripe/paymentintent', {
-        method: 'POST',
-        body: {
-            amount: total.value,
-        }
-    })
-    clientSecret = res.client_secret
-
-    elements = stripe.elements();
-    var style = {
-        base: {
-            fontSize: "18px",
-        },
-        invalid: {
-            fontFamily: 'Arial, sans-serif',
-            color: "#EE4B2B",
-            iconColor: "#EE4B2B"
-        }
-    };
-    card = elements.create("card", { 
-        hidePostalCode: true, 
-        style: style 
-    });
-
-    // Stripe injects an iframe into the DOM
-    card.mount("#card-element");
-    card.on("change", function (event) {
-        // Disable the Pay button if there are no card details in the Element
-        document.querySelector("button").disabled = event.empty;
-        document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
-    });
-
-    isProcessing.value = false
-}
-
 const pay = async () => {
     if (currentAddress.value && currentAddress.value.data == '') {
         showError('Please add shipping address')
         return 
     }
     isProcessing.value = true
-    
-    let result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: { card: card },
-    })
-
-    if (result.error) {
-        showError(result.error.message);
-        isProcessing.value = false
-    } else {
-        await createOrder(result.paymentIntent.id)
-        userStore.cart = []
-        userStore.checkout = []
-        setTimeout(() => {
-            return navigateTo('/success')
-        }, 500)
-    }
+    await createOrder()
+    userStore.cart = []
+    userStore.checkout = []
+    setTimeout(() => {
+        return navigateTo('/success')
+    }, 500)
 }
 
-const createOrder = async (stripeId) => {
+const createOrder = async () => {
     await useFetch('/api/prisma/create-order', {
         method: "POST",
         body: {
             userId: user.value.id,
-            stripeId: stripeId,
             name: currentAddress.value.data.name,
             address: currentAddress.value.data.address,
             zipcode: currentAddress.value.data.zipcode,

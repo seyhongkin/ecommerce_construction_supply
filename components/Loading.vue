@@ -16,7 +16,7 @@
     >
         <div class="p-3 rounded-md bg-black bg-opacity-20">
             <Icon name="eos-icons:bubble-loading" size="100" color="#FD374F"/>
-            <div class="text-center pt-5 text-xl font-bold text-white">Loading...</div>
+            <div class="text-center pt-5 text-xl font-bold text-white">កំពុងដំណើរការ...</div>
         </div>
     </div>
 </template>
