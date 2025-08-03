@@ -177,6 +177,7 @@ const pay = async () => {
     }, 500)
 }
 
+//NOTE;
 const createOrder = async () => {
     await useFetch('/api/prisma/create-order', {
         method: "POST",
