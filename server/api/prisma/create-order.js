@@ -7,7 +7,6 @@ export default defineEventHandler(async (event) => {
     const order = await prisma.orders.create({
         data: {
             userId: body.userId,
-            stripeId: body.stripeId,
             name: body.name,
             address: body.address,
             zipcode: body.zipcode,
